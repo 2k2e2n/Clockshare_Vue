@@ -5,6 +5,7 @@ import Resttime from '@/components/Resttime.vue';
 
 const time  = ref(0);
 const isRest = ref(false);
+const resttimeleft = ref(100);
 
 window.addEventListener('load', function () {
   time.value=0;
@@ -27,6 +28,6 @@ function toggleRest() {
     <button @click="toggleRest">{{ isRest ? 'REST(True)' : 'TIME(False)' }}</button>
     <p>TIME: {{ time }} </p>
     <Showtime v-if="!isRest" :time="time" />
-    <Resttime v-if="isRest" :isRest="isRest"/>
+    <Resttime v-if="isRest" :isRest="isRest" />
   </div>
 </template>

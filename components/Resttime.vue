@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watch, defineProps, onMounted } from 'vue';
 
-const resttimeleft  = ref(100);
 
+const resttimeleft = ref(0);
 // 親コンポーネントから受け取るデータ指定
 const props = defineProps({
   isRest: {
@@ -16,7 +16,6 @@ onMounted(() => {
   const intervalId = window.setInterval(loop, 1000);  // 1秒に1回実行
   checkisRest();
 });
-
 watch(
   () => props.isRest,
   (isRest) => {
