@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import Showtime from `./../../components/Showtime.vue`;
 
 const time  = ref(0)
 const timeS = ref(0);
@@ -37,5 +38,6 @@ function toggleRest() {
     <button @click="toggleRest">{{ isRest ? 'REST(True)' : 'TIME(False)' }}</button>
     <p>TIME: {{ time }} </p>
     <h3>{{ timeH }}:{{ timeM }}:{{ timeS }}</h3>
+    <Showtime :time=time />
   </div>
 </template>
