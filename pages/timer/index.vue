@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const time = ref(0)
+const time  = ref(0)
 const timeS = ref(0);
 const timeM = ref(0);
 const timeH = ref(0);
