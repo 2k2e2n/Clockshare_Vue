@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p class="header">Header</p>
+    <p class="header">Header
+      <router-link to="/">Top</router-link>
+      <router-link to="/todo">Todo</router-link>
+    </p>
     <nuxt />
     <p>Footer</p>
   </div>
