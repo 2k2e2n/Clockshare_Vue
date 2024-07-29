@@ -38,6 +38,6 @@ function loop() {
 
 <template >
   <div>
-    <p>restTIMEleft: {{ resttimeleft }}</p>
+    <div>restTIMEleft: {{ resttimeleft }}</div>
   </div>
 </template>
