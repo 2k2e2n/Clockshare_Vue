@@ -1,7 +1,13 @@
 <template>
   <div>
-    <p>ヘッダー</p>
+    <p class="header">Header</p>
     <nuxt />
-    <p>フッター</p>
+    <p>Footer</p>
   </div>
 </template>
+
+<style>
+.header {
+  background-color: aqua;
+}
+</style>

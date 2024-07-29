@@ -35,12 +35,7 @@ function padTime(value) {
 </script>
 <template>
   <div>
-    <div class="time">{{ timeH }}:{{ timeM }}:{{ timeS }}</div>
+    <div>{{ timeH }}:{{ timeM }}:{{ timeS }}</div>
   </div>
 </template>
 
-<style scoped>
-.time {
-  font-size: 500%;
-}
-</style>
