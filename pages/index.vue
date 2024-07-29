@@ -54,3 +54,5 @@ function toggleRest() {
     <button @click="clearTime">ClearTime</button>
   </div>
 </template>
+
+
