@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import Showtime from '@/components/Showtime.vue';
 import Resttime from '@/components/Resttime.vue';
-import Theheader from '~/components/Theheader.vue';
+
 
 const time  = ref(0);
 const isRest = ref(false);
@@ -45,7 +45,6 @@ function toggleRest() {
 </script>
 <template>
   <div>
-    <Theheader />
     <h2>タイマーテスト</h2>
     <p>TIME: {{ time }} </p>
     <Showtime v-if="!isRest" :time="time" />
