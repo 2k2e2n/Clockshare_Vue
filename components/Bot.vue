@@ -1,13 +1,15 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 import Showtime from './Showtime.vue';
 
-const bottime  = ref(0);
-window.addEventListener('load', function () {
+//親コンポーネントから受け取るデータ指定
+//親コンポーネントから受け取るデータ指定
 
-});
+
+
+const time  = ref( Math.floor(Math.random() * 101) ); 
+
 onMounted(() => {
-  bottime.value=Math.floor( Math.random() * 101 );;
   const intervalId = window.setInterval(loop, 1000);  // 1秒に1回実行
 });
 
@@ -15,20 +17,20 @@ onMounted(() => {
 
 //１秒毎にループ
 function loop() {
-  bottime.value++;
+  time.value++;
 };
 
 </script>
 <template>
   <div>
-    <p>BOTTIME: {{ bottime }} </p>
-    <Showtime class="maincontent" v-if="!isRest" :time="bottime" />
+    <p>{{time}}</p>
+    <Showtime class="set-font-size" :time="bottime" />
   </div>
 </template>
 
 
 <style scoped>
-.maincontent {
+.set-font-size {
   font-size: 200%;
 }
 </style>
