@@ -8,6 +8,8 @@ const time = ref(0);
 const isRest = ref(false);
 const resttimeleft = ref(100);
 const local_time_keyname = "time";
+const bot = ref(10);
+
 
 window.addEventListener('load', function () {
   // ロード中
@@ -46,14 +48,16 @@ function toggleRest() {
 
 <template>
   <div>
+
     <h2>タイマーテスト</h2>
     <p>TIME: {{ time }} </p>
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
     <button @click="toggleRest">{{ isRest ? 'REST(True)' : 'TIME(False)' }}</button>
     <button @click="clearTime">ClearTime</button>
-
     <h3>--bot--</h3>
+    <Bot />
+
   </div>
 </template>
 
