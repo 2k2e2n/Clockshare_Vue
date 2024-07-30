@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import Showtime from '@/components/Showtime.vue';
 import Resttime from '@/components/Resttime.vue';
+import Bot from '@/components/Bot.vue';
 
 
 const time  = ref(0);
@@ -55,6 +56,7 @@ function toggleRest() {
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
     <button @click="toggleRest">{{ isRest ? 'REST(True)' : 'TIME(False)' }}</button>
     <button @click="clearTime">ClearTime</button>
+    <Bot />
   </div>
 </template>
 
