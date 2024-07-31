@@ -17,14 +17,16 @@ function loop() {
 </script>
 <template>
   <div>
-    <p>{{bottime}}</p>
+    <ul>CPU:
     <Showtime class="set-font-size" :time="bottime" />
+    </ul>
+
   </div>
 </template>
 
 
 <style scoped>
 .set-font-size {
-  font-size: 200%;
+  font-size: 150%;
 }
 </style>

@@ -55,7 +55,10 @@ function toggleRest() {
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
     <button @click="toggleRest">{{ isRest ? 'REST(True)' : 'TIME(False)' }}</button>
     <button @click="clearTime">ClearTime</button>
+
     <h3>--bot--</h3>
+    <Bot />
+    <Bot />
     <Bot />
 
   </div>
