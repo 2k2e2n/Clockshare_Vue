@@ -2,7 +2,7 @@
 import { ref, onMounted, defineProps } from 'vue';
 import Showtime from './Showtime.vue';
 
-const bottime  = ref( Math.floor(Math.random() * 1010) ); ;
+const bottime  = ref( Math.floor(Math.random() * 90000) );
 
 onMounted(() => {
   const intervalId = window.setInterval(loop, 1000);  // 1秒に1回実行

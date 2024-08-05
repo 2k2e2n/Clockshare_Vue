@@ -25,7 +25,7 @@ onMounted(() => {
 function updatetime(newtime) {
   timeS.value = padTime(newtime % 60);
     timeM.value = padTime(Math.floor(newtime / 60) % 60);
-    timeH.value = padTime(Math.floor(newtime / (60 * 60)) % 24);
+    timeH.value = padTime(Math.floor(newtime / 3600));
 }
 
 // 0:4:20 -> 00:04:20 桁数をあわせる
