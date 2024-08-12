@@ -67,10 +67,7 @@ function toggleRest() {
 <style scoped>
 .maincontent {
   font-size: 500%;
-  color:red;
+  color:blue;
   font-weight:bold;
   }
-.Bot {
- color:aqua;
-}
 </style>
