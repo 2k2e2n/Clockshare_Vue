@@ -74,6 +74,7 @@ function toggleRest() {
 </script>
 
 <style scoped>
+/*  ---CSS---   */
 .maincontent {
   font-size: 500%;
   color: red;
