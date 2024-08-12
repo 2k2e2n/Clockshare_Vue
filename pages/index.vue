@@ -66,6 +66,6 @@ function toggleRest() {
 
 <style scoped>
 .maincontent {
-  font-size: 500%;
+  font-size: 1000%;
 }
 </style>
