@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="timer-container">
     <h2>タイマーテスト</h2>
     <p>TIME: {{ time }} </p>
+    <div class="progress-bar">
+      <div class="progress" :style="{ width: progress + '%' }"></div>
+    </div>
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
 
@@ -33,6 +36,7 @@ import Bot from '@/components/Bot.vue';
 
 const time = ref(0);
 const isRest = ref(false);
+const progress = ref(0); // 追加: ゲージの進行度を管理する変数
 const local_time_keyname = "time";
 const bot = ref(10);
 
@@ -44,6 +48,7 @@ window.addEventListener('load', function () {
 
 onMounted(() => {
   time.value = 0;
+  progress.value = 0; // 初期化
   const intervalId = window.setInterval(loop, 1000);
   checklocalkey();
 });
@@ -59,11 +64,13 @@ function checklocalkey() {
 function clearTime() {
   localStorage.setItem(local_time_keyname, "0");
   checklocalkey();
+  progress.value = 0; // 追加: ゲージもリセット
 }
 
 function loop() {
   if (!isRest.value) {
     time.value++;
+    progress.value = (time.value % 100); // 追加: ゲージの進行度を更新（100秒ごとにリセット）
     localStorage.setItem(local_time_keyname, time.value);
   }
 }
@@ -74,11 +81,36 @@ function toggleRest() {
 </script>
 
 <style scoped>
-/*  ---CSS---   */
+/* 全体を中央に配置するためのスタイル */
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+/* ---既存のCSS--- */
 .maincontent {
   font-size: 500%;
   color: red;
   font-weight: bold;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.progress {
+  height: 20px;
+  background-color: #3498db;
+  width: 0;
+  transition: width 1s linear; /* ゲージの幅を滑らかに更新 */
 }
 
 .toggle-button {

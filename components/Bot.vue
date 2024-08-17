@@ -3,15 +3,19 @@ import { ref, onMounted, defineProps } from 'vue';
 import Showtime from './Showtime.vue';
 
 const bottime  = ref( Math.floor(Math.random() * 90000) );
-
+const progress = ref(0);
+const local_time_keyname = "time";
 onMounted(() => {
   const intervalId = window.setInterval(loop, 1000);  // 1秒に1回実行
+  progress.value = 0;
 });
 
 //１秒毎にループ
 function loop() {
   bottime.value++;
   console.log(bottime.value);
+  progress.value = (bottime.value % 100);
+  localStorage.setItem(local_time_keyname, bottime.value);
 };
 
 </script>
@@ -19,6 +23,9 @@ function loop() {
   <div>
     <ul>CPU:
     <Showtime class="set-font-size" :time="bottime" />
+    <div class = "progress-bar">
+      <div class = "progress" :style="{width: progress + '%'}"></div>
+      </div>
     </ul>
 
   </div>
@@ -29,4 +36,20 @@ function loop() {
 .set-font-size {
   font-size: 150%;
 }
+
+.progress-bar {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.progress {
+  height: 20px;
+  background-color: blue;
+  width: 0;
+  transition: width 1s linear;
+}
+
 </style>
