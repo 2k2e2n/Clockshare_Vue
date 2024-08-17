@@ -21,7 +21,7 @@ function loop() {
 </script>
 <template>
   <div>
-    <ul>CPU:
+    <ul class="CPU">CPU:
     <Showtime class="set-font-size" :time="bottime" />
     <div class = "progress-bar">
       <div class = "progress" :style="{width: progress + '%'}"></div>
@@ -37,12 +37,24 @@ function loop() {
   font-size: 150%;
 }
 
+.CPU {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .progress-bar {
-  width: 100%;
+  width: 300%;
   background-color: white;
   border-radius: 5px;
   overflow: hidden;
   margin: 20px 0;
+
+  /*
+  justify-content: center;
+  display: flex;
+  */
 }
 
 .progress {
