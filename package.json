@@ -14,7 +14,8 @@
     "nuxt": "^2.15.8",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10"
+    "vue-template-compiler": "^2.7.10",
+    "vue3-lottie": "^3.3.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",

@@ -1,4 +1,61 @@
+<script setup>
+  import { ref, onMounted } from 'vue';
+  import Showtime from '@/components/Showtime.vue';
+  import Resttime from '@/components/Resttime.vue';
+  import Bot from '@/components/Bot.vue';
+
+  // install lottie
+
+
+  // Variable
+  const time = ref(0);
+  const isRest = ref(false);
+  const progress = ref(0); // 追加: ゲージの進行度を管理する変数
+  const local_time_keyname = "time";
+  const bot = ref(10);
+  const hover = ref(false); // ホバー状態を管理する変数
+
+  window.addEventListener('load', function () {
+    // ロード中
+  });
+
+onMounted(() => {
+  time.value = 0;
+  progress.value = 0; // 初期化
+  const intervalId = window.setInterval(loop, 1000);
+  checklocalkey();
+  });
+
+  function checklocalkey() {
+    if (localStorage.hasOwnProperty(local_time_keyname)) {
+      time.value = Number(localStorage.getItem(local_time_keyname));
+    } else {
+      localStorage.setItem(local_time_keyname, "0");
+    }
+  }
+
+  function clearTime() {
+    localStorage.setItem(local_time_keyname, "0");
+    checklocalkey();
+    progress.value = 0; // 追加: ゲージもリセット
+  }
+
+  function loop() {
+    if (!isRest.value) {
+      time.value++;
+      progress.value = (time.value % 100); // 追加: ゲージの進行度を更新（100秒ごとにリセット）
+      localStorage.setItem(local_time_keyname, time.value);
+    }
+  }
+
+  function toggleRest() {
+    isRest.value = !isRest.value;
+  }
+
+</script>
+
 <template>
+
   <div class="timer-container">
     <h2>タイマーテスト</h2>
     <p>TIME: {{ time }} </p>
@@ -25,63 +82,13 @@
     <Bot />
     <Bot />
     <Bot />
+
+
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
-import Showtime from '@/components/Showtime.vue';
-import Resttime from '@/components/Resttime.vue';
-import Bot from '@/components/Bot.vue';
-
-const time = ref(0);
-const isRest = ref(false);
-const progress = ref(0); // 追加: ゲージの進行度を管理する変数
-const local_time_keyname = "time";
-const bot = ref(10);
-
-const hover = ref(false); // ホバー状態を管理する変数
-
-window.addEventListener('load', function () {
-  // ロード中
-});
-
-onMounted(() => {
-  time.value = 0;
-  progress.value = 0; // 初期化
-  const intervalId = window.setInterval(loop, 1000);
-  checklocalkey();
-});
-
-function checklocalkey() {
-  if (localStorage.hasOwnProperty(local_time_keyname)) {
-    time.value = Number(localStorage.getItem(local_time_keyname));
-  } else {
-    localStorage.setItem(local_time_keyname, "0");
-  }
-}
-
-function clearTime() {
-  localStorage.setItem(local_time_keyname, "0");
-  checklocalkey();
-  progress.value = 0; // 追加: ゲージもリセット
-}
-
-function loop() {
-  if (!isRest.value) {
-    time.value++;
-    progress.value = (time.value % 100); // 追加: ゲージの進行度を更新（100秒ごとにリセット）
-    localStorage.setItem(local_time_keyname, time.value);
-  }
-}
-
-function toggleRest() {
-  isRest.value = !isRest.value;
-}
-</script>
 
 <style scoped>
-/* 全体を中央に配置するためのスタイル */
 .timer-container {
   display: flex;
   flex-direction: column;
@@ -144,4 +151,5 @@ function toggleRest() {
 .clear-button:hover {
   background-color: #c0392b; /* ホバー時の暗い赤色背景 */
 }
+
 </style>
