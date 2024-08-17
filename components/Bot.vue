@@ -2,7 +2,7 @@
 import { ref, onMounted, defineProps } from 'vue';
 import Showtime from './Showtime.vue';
 
-const bottime  = ref( Math.floor(Math.random() * 90000) );
+const bottime  = ref( Math.floor(Math.random() * 10000) );
 const progress = ref(0);
 const local_time_keyname = "time";
 onMounted(() => {
@@ -14,7 +14,7 @@ onMounted(() => {
 function loop() {
   bottime.value++;
   console.log(bottime.value);
-  progress.value = (bottime.value % 100);
+  progress.value = (bottime.value % 100); //100sでリセット
   localStorage.setItem(local_time_keyname, bottime.value);
 };
 
