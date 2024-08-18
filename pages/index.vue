@@ -14,6 +14,7 @@
   const local_time_keyname = "time";
   const bot = ref(10);
   const hover = ref(false); // ホバー状態を管理する変数
+  const check = ref(0);//ゲージが何回満タンになったか
 
   window.addEventListener('load', function () {
     // ロード中
@@ -46,6 +47,9 @@ onMounted(() => {
       progress.value = (time.value % 100); // 追加: ゲージの進行度を更新（100秒ごとにリセット）
       localStorage.setItem(local_time_keyname, time.value);
     }
+    if (progress.value == 99) {
+      check.value++;
+    }
   }
 
   function toggleRest() {
@@ -58,7 +62,7 @@ onMounted(() => {
 
   <div class="timer-container">
     <h2>タイマーテスト</h2>
-    <p>TIME: {{ time }} </p>
+    <p>check: {{ check }} time: {{ time }} </p>
     <div class="progress-bar">
       <div class="progress" :style="{ width: progress + '%' }"></div>
     </div>
@@ -79,12 +83,14 @@ onMounted(() => {
     <button class="clear-button" @click="clearTime">ClearTime</button>
 
     <h3>--bot--</h3>
+    
     <Bot />
     <Bot />
     <Bot />
-
 
   </div>
+
+  
 </template>
 
 
@@ -110,7 +116,10 @@ onMounted(() => {
   background-color: #e0e0e0;
   border-radius: 5px;
   overflow: hidden;
-  margin: 20px 0;
+  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
 }
 
 .progress {
@@ -145,6 +154,7 @@ onMounted(() => {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 10px;
   transition: background-color 0.3s ease, color 0.3s ease; /* 色のトランジション */
 }
 

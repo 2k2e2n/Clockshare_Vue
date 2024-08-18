@@ -43,10 +43,11 @@ function loop() {
   align-items: center;
   justify-content: center;
   text-align: center;
+  margin-left: -50px;
 }
 .progress-bar {
   width: 300%;
-  background-color: white;
+  background-color: rgb(145, 145, 145);
   border-radius: 5px;
   overflow: hidden;
   margin: 20px 0;

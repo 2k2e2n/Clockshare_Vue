@@ -16,5 +16,6 @@
 
 }
 .header-text {
+  font-weight: bold;
 }
 </style>
