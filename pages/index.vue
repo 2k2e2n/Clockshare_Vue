@@ -1,110 +1,156 @@
-<script setup>
-  import { ref, onMounted } from 'vue';
-  import Showtime from '@/components/Showtime.vue';
-  import Resttime from '@/components/Resttime.vue';
-  import Bot from '@/components/Bot.vue';
-
-
-  // Variable
-  const time = ref(0);
-  const isRest = ref(false);
-  const progress = ref(0); // 追加: ゲージの進行度を管理する変数
-  const local_time_keyname = "time";
-  const bot = ref(10);
-  const hover = ref(false); // ホバー状態を管理する変数
-  const check = ref(0);//ゲージが何回満タンになったか
-
-  window.addEventListener('load', function () {
-    // ロード中
-  });
-
-  onMounted(() => {
-    time.value = 0;
-    progress.value = 0; // 初期化
-    const intervalId = window.setInterval(loop, 100); //デフォルトは1000
-    checklocalkey();
-  });
-
-  //時間が保存されているか確認
-  function checklocalkey() {
-    // 休憩していない場合１秒ずつ実行
-    if (localStorage.hasOwnProperty(local_time_keyname)) {
-      time.value = Number(localStorage.getItem(local_time_keyname));
-    } else {
-      localStorage.setItem(local_time_keyname, "0");
-    }
-  }
-
-  function clearTime() {
-    localStorage.setItem(local_time_keyname, "0");
-    checklocalkey();
-    progress.value = 0; // 追加: ゲージもリセット
-  }
-
-  function loop() {
-    if (!isRest.value) {
-      time.value++;
-      progress.value = (time.value % 600); // 追加: ゲージの進行度を更新（10分ごとにリセット）
-      localStorage.setItem(local_time_keyname, time.value);
-    }
-    if (progress.value == 599) {
-      check.value++;
-      //progress.value == 0;
-    }
-  }
-
-  function toggleRest() {
-    isRest.value = !isRest.value;
-  }
-</script>
-
-
 <template>
-
-  <div class="timer-container">
-  <h1>タイマーテスト</h1>
-  <p>check: {{ check }} time: {{ time }}  </p>
-  <div>
-  <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> </div>
-
-    <Showtime class="maincontent" v-if="!isRest" :time="time" />
-    <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
-    <div class="progress-bar">
-      <div class="progress" :style="{ width: (progress * (1/6)) + '%' }"></div>
+  <div id="app">
+    <h1 v-if="!isTaskEntered">今勉強するべきことはなんですか？</h1>
+    
+    <!-- タスク入力フォーム -->
+    <div v-if="!isTaskEntered">
+      <input v-model="task" placeholder="Enter a task" />
+      <button @click="enterTask">Go</button>
     </div>
 
-    <div class="btn-main">
-      <!-- トグルボタン -->
-      <button 
-        class="toggle-button" 
-        @mouseover="hover = true" 
-        @mouseleave="hover = false" 
-        :class="{ 'hover': hover }" 
-        @click="toggleRest">
-        {{ isRest ? 'REST' : 'studying' }}
-      </button>
-      <!-- クリアタイムボタン -->
-      <button class="clear-button" @click="clearTime">ClearTime </button>
-    </div>
+    <!-- タイマー表示 -->
+    <div v-else class="timer-container">
+      <h1>タイマーテスト</h1>
+      <p>今勉強していること：{{ task }}</p>
+      <p>check: {{ check }} time: {{ time }}</p>
+      <div>
+        <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> 
+      </div>
 
-    <Bot />
-    <Bot />
-    <Bot />
+      <Showtime class="maincontent" v-if="!isRest" :time="time" />
+      <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
+      <div class="progress-bar">
+        <div class="progress" :style="{ width: (progress * (1/6)) + '%' }"></div>
+      </div>
+
+      <div class="btn-main">
+        <!-- トグルボタン -->
+        <button 
+          class="toggle-button" 
+          @mouseover="hover = true" 
+          @mouseleave="hover = false" 
+          :class="{ 'hover': hover }" 
+          @click="toggleRest">
+          {{ isRest ? 'REST' : 'studying' }}
+        </button>
+        <!-- クリアタイムボタン -->
+        <button class="clear-button" @click="clearTime">ClearTime</button>
+      </div>
+
+      <Bot />
+      <Bot />
+      <Bot />
+    </div>
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted } from 'vue';
+import Showtime from '@/components/Showtime.vue';
+import Resttime from '@/components/Resttime.vue';
+import Bot from '@/components/Bot.vue';
+
+const task = ref('');
+const isTaskEntered = ref(false);
+const time = ref(0);
+const isRest = ref(false);
+const progress = ref(0);
+const hover = ref(false);
+const check = ref(0);
+const local_time_keyname = "time";
+
+let intervalId = null;
+
+onMounted(() => {
+  checklocalkey();
+});
+
+function enterTask() {
+  if (task.value.trim() !== '') {
+    isTaskEntered.value = true;
+    startTimer();
+  }
+}
+
+function startTimer() {
+  time.value = Number(localStorage.getItem(local_time_keyname)) || 0;
+  progress.value = time.value % 600;
+  
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+
+  intervalId = window.setInterval(loop, 1000); // Update every second
+}
+
+function checklocalkey() {
+  if (!localStorage.getItem(local_time_keyname)) {
+    localStorage.setItem(local_time_keyname, "0");
+  }
+}
+
+function clearTime() {
+  localStorage.setItem(local_time_keyname, "0");
+  time.value = 0;
+  progress.value = 0;
+}
+
+function loop() {
+  if (!isRest.value) {
+    time.value++;
+    progress.value = time.value % 600; // Gauge resets every 10 minutes
+    localStorage.setItem(local_time_keyname, time.value);
+    
+    if (progress.value === 599) {
+      check.value++;
+    }
+  }
+}
+
+function toggleRest() {
+  isRest.value = !isRest.value;
+}
+</script>
 
 <style scoped>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
 .timer-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /*height: 100vh; */
   text-align: center;
 }
 
-/* ---既存のCSS--- */
 .maincontent {
   font-size: 500%;
   color: red;
@@ -124,45 +170,46 @@
   height: 20px;
   background-color: #3498db;
   width: 0;
-  transition: width 1s linear; /* ゲージの幅を滑らかに更新 */
+  transition: width 1s linear;
 }
 
 .btn-main {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-  .toggle-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease; /* 色のトランジション */
-    margin-right: 10px;
-    background-color: #3498db; /* 通常時の青色背景 */
 
-  }
-  .clear-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease; /* 色のトランジション */
-    background-color: #e74c3c; /* 通常時の赤色背景 */
+.toggle-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-right: 10px;
+  background-color: #3498db;
+}
 
-  }
-  .toggle-button.hover {
-    background-color: #f1c40f; /* ホバー時の黄色背景 */
-    color: black; /* ホバー時の黒色テキスト */
-  }
-  .clear-button:hover {
-    background-color: #c0392b; /* ホバー時の暗い赤色背景 */
-  }
+.clear-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #e74c3c;
+}
+
+.toggle-button.hover {
+  background-color: #f1c40f;
+  color: black;
+}
+
+.clear-button:hover {
+  background-color: #c0392b;
+}
 
 .running-stickman {
   scale: 20%;
@@ -170,5 +217,4 @@
   margin-top: -200px;
   z-index: -1;
 }
-
 </style>
