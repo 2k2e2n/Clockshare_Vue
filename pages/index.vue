@@ -13,9 +13,7 @@
       <h1>タイマーテスト</h1>
       <p>今勉強していること：{{ task }}</p>
       <p>check: {{ check }} time: {{ time }}</p>
-      <div>
-        <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> 
-      </div>
+
 
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
@@ -43,7 +41,6 @@
       <Bot />
       <Bot />
       <Bot />
-    </div>
   </div>
 </template>
 
