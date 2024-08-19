@@ -62,13 +62,15 @@ onMounted(() => {
 
   <div class="timer-container">
     <h2>タイマーテスト</h2>
-    <p>check: {{ check }} time: {{ time }} </p>
-    <div class="progress-bar">
-      <div class="progress" :style="{ width: progress + '%' }"></div>
-    </div>
+       <p>check: {{ check }} time: {{ time }}  </p>
+    <div>
+   <img src ="@/assets/images/running-stickman.gif" alt = "logo" class = "running-stickman"> </div>
+    
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
-
+   <div class="progress-bar">
+      <div class="progress" :style="{ width: progress + '%' }"></div>
+    </div>
     <!-- トグルボタン -->
     <button 
       class="toggle-button" 
@@ -83,7 +85,7 @@ onMounted(() => {
     <button class="clear-button" @click="clearTime">ClearTime</button>
 
     <h3>--bot--</h3>
-    
+
     <Bot />
     <Bot />
     <Bot />
@@ -160,6 +162,12 @@ onMounted(() => {
 
 .clear-button:hover {
   background-color: #c0392b; /* ホバー時の暗い赤色背景 */
+}
+
+.running-stickman {
+  scale: 20%;
+  margin-bottom: -250px;
+  margin-top: -200px;
 }
 
 </style>
