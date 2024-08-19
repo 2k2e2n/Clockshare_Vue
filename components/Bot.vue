@@ -13,7 +13,6 @@ onMounted(() => {
 //１秒毎にループ
 function loop() {
   bottime.value++;
-  console.log(bottime.value);
   progress.value = (bottime.value % 100); //100sでリセット
   localStorage.setItem(local_time_keyname, bottime.value);
 };

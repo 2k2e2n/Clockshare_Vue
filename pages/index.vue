@@ -25,6 +25,7 @@
     checklocalkey();
   });
 
+  //時間が保存されているか確認
   function checklocalkey() {
     if (localStorage.hasOwnProperty(local_time_keyname)) {
       time.value = Number(localStorage.getItem(local_time_keyname));
@@ -59,32 +60,30 @@
 <template>
 
   <div class="timer-container">
-    <h2>タイマーテスト</h2>
-    <p>check: {{ check }} time: {{ time }}  </p>
-    <div>
-  <img src="@/assets/images/running-stickman.gif" alt="logo" class="running-stickman"> </div>
-    
+  <h2>タイマーテスト</h2>
+  <p>check: {{ check }} time: {{ time }}  </p>
+  <div>
+  <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> </div>
+
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
-  <div class="progress-bar">
+    <div class="progress-bar">
       <div class="progress" :style="{ width: progress + '%' }"></div>
     </div>
 
     <div class="btn-main">
-    <!-- トグルボタン -->
+      <!-- トグルボタン -->
       <button 
         class="toggle-button" 
         @mouseover="hover = true" 
         @mouseleave="hover = false" 
         :class="{ 'hover': hover }" 
         @click="toggleRest">
-        {{ isRest ? 'REST(True)' : 'TIME(False)' }}
+        {{ isRest ? 'REST' : 'studying' }}
       </button>
-
       <!-- クリアタイムボタン -->
-      <button class="clear-button" @click="clearTime">ClearTime</button>
+      <button class="clear-button" @click="clearTime">ClearTime </button>
     </div>
-
 
     <h3>--bot--</h3>
 
@@ -133,40 +132,40 @@
 
 .btn-main {
   display: flex;
-}
+  align-items: center;
+  justify-content: center;
 
-.toggle-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: white;
-  background-color: #3498db; /* 通常時の青色背景 */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease; /* 色のトランジション */
-  margin-right: 10px;
 }
+  .toggle-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* 色のトランジション */
+    margin-right: 10px;
+    background-color: #3498db; /* 通常時の青色背景 */
 
-.toggle-button.hover {
-  background-color: #f1c40f; /* ホバー時の黄色背景 */
-  color: black; /* ホバー時の黒色テキスト */
-}
+  }
+  .clear-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* 色のトランジション */
+    background-color: #e74c3c; /* 通常時の赤色背景 */
 
-.clear-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: white;
-  background-color: #e74c3c; /* 通常時の赤色背景 */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease; /* 色のトランジション */
-}
-
-.clear-button:hover {
-  background-color: #c0392b; /* ホバー時の暗い赤色背景 */
-}
+  }
+  .toggle-button.hover {
+    background-color: #f1c40f; /* ホバー時の黄色背景 */
+    color: black; /* ホバー時の黒色テキスト */
+  }
+  .clear-button:hover {
+    background-color: #c0392b; /* ホバー時の暗い赤色背景 */
+  }
 
 .running-stickman {
   scale: 20%;
