@@ -100,7 +100,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /*height: 100vh; */
   text-align: center;
 }
 
@@ -117,10 +117,7 @@
   background-color: #e0e0e0;
   border-radius: 5px;
   overflow: hidden;
-  margin: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-
+  margin: 10px 0;
 }
 
 .progress {
