@@ -10,6 +10,7 @@ import '@/assets/default.css'; // ここを追加
   </div>
   <div class="header-right">
     <div class="header-btn">
+
       <router-link :to="{ path: '/' }">
       <button class="button">
         <span class="lable">TOP</span>
@@ -21,6 +22,13 @@ import '@/assets/default.css'; // ここを追加
         <span class="lable">TODO</span>
       </button>
       </router-link>
+
+      <router-link :to="{ path: '/what-study' }">
+      <button class="button">
+        <span class="lable">What study?</span>
+      </button>
+      </router-link>
+
     </div>
   </div>
 </header>

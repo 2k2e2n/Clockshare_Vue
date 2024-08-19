@@ -1,15 +1,70 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import Showtime from '@/components/Showtime.vue';
+import Resttime from '@/components/Resttime.vue';
+import Bot from '@/components/Bot.vue';
+
+const task = ref('');
+const time = ref(0);
+const isRest = ref(false);
+const progress = ref(0);
+const hover = ref(false);
+const check = ref(0);
+const local_time_keyname = "time";
+
+let intervalId = null;
+
+onMounted(() => {
+  checklocalkey();
+  startTimer();
+});
+
+
+
+function startTimer() {
+  time.value = Number(localStorage.getItem(local_time_keyname)) || 0;
+  progress.value = time.value % 600;
+  
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+
+  intervalId = window.setInterval(loop, 1000); // Update every second
+}
+
+function checklocalkey() {
+  if (!localStorage.getItem(local_time_keyname)) {
+    localStorage.setItem(local_time_keyname, "0");
+  }
+  task.value = localStorage.getItem("whatstudy", task.value);
+}
+
+function clearTime() {
+  localStorage.setItem(local_time_keyname, "0");
+  time.value = 0;
+  progress.value = 0;
+}
+
+function loop() {
+  if (!isRest.value) {
+    time.value++;
+    progress.value = time.value % 600; // Gauge resets every 10 minutes
+    localStorage.setItem(local_time_keyname, time.value);
+    
+    if (progress.value === 599) {
+      check.value++;
+    }
+  }
+}
+
+function toggleRest() {
+  isRest.value = !isRest.value;
+}
+</script>
+
 <template>
   <div id="app">
-    <h1 v-if="!isTaskEntered">今勉強するべきことはなんですか？</h1>
-    
-    <!-- タスク入力フォーム -->
-    <div v-if="!isTaskEntered">
-      <input v-model="task" placeholder="Enter a task" />
-      <button @click="enterTask">Go</button>
-    </div>
-
-    <!-- タイマー表示 -->
-    <div v-else class="timer-container">
+    <div class="timer-container">
       <h1>タイマーテスト</h1>
       <p>今勉強していること：{{ task }}</p>
       <p>check: {{ check }} time: {{ time }}</p>
@@ -35,7 +90,7 @@
         {{ isRest ? 'REST' : 'studying' }}
       </button>
       <!-- クリアタイムボタン -->
-      <button class="clear-button" @click="clearTime">ClearTime </button>
+      <button class="clear-button" @click="clearTime">ClearTime</button>
     </div>
 
       <Bot />
@@ -43,74 +98,6 @@
       <Bot />
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import Showtime from '@/components/Showtime.vue';
-import Resttime from '@/components/Resttime.vue';
-import Bot from '@/components/Bot.vue';
-
-const task = ref('');
-const isTaskEntered = ref(false);
-const time = ref(0);
-const isRest = ref(false);
-const progress = ref(0);
-const hover = ref(false);
-const check = ref(0);
-const local_time_keyname = "time";
-
-let intervalId = null;
-
-onMounted(() => {
-  checklocalkey();
-});
-
-function enterTask() {
-  if (task.value.trim() !== '') {
-    isTaskEntered.value = true;
-    startTimer();
-  }
-}
-
-function startTimer() {
-  time.value = Number(localStorage.getItem(local_time_keyname)) || 0;
-  progress.value = time.value % 600;
-  
-  if (intervalId) {
-    clearInterval(intervalId);
-  }
-
-  intervalId = window.setInterval(loop, 1000); // Update every second
-}
-
-function checklocalkey() {
-  if (!localStorage.getItem(local_time_keyname)) {
-    localStorage.setItem(local_time_keyname, "0");
-  }
-}
-
-function clearTime() {
-  localStorage.setItem(local_time_keyname, "0");
-  time.value = 0;
-  progress.value = 0;
-}
-
-function loop() {
-  if (!isRest.value) {
-    time.value++;
-    progress.value = time.value % 600; // Gauge resets every 10 minutes
-    localStorage.setItem(local_time_keyname, time.value);
-    
-    if (progress.value === 599) {
-      check.value++;
-    }
-  }
-}
-
-function toggleRest() {
-  isRest.value = !isRest.value;
-}
-</script>
 
 <style scoped>
 #app {
@@ -166,10 +153,11 @@ button:hover {
   margin: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+  width: 50vw;
+  max-width :700px;
 }
 
 .progress {
-
   height: 20px;
   background-color: #3498db;
   width: 0;
