@@ -3,10 +3,13 @@ import '@/assets/default.css'; // ここを追加
 </script>
 
 <template>
-  <div>
-  <header class="header">
+<div>
+<header class="header">
+  <div class="header-left">
+      <h1>タイマーテスト</h1>
+  </div>
+  <div class="header-right">
     <div class="header-btn">
-
       <router-link :to="{ path: '/' }">
       <button class="button">
         <span class="lable">TOP</span>
@@ -19,23 +22,31 @@ import '@/assets/default.css'; // ここを追加
       </button>
       </router-link>
     </div>
-
-  </header>
-    <nuxt />
-    <p>Footer</p>
   </div>
+</header>
+  <nuxt />
+  <p>Footer</p>
+</div>
 </template>
 
 <style scoped>
-
 .header {
-  height: 50px;
-  background-color: #e6e6e6;
-  justify-content: flex-end;
   display: flex;
-  align-items: center; 
+  align-items: center;
+  background-color: #e6e6e6;
+  height: 50px;
+  justify-content: space-between;
+}
+.header-left {
+  display: flex;
+  justify-content: flex-end;
+}
+.header-right {
+  display: flex;
+  justify-content: flex-end;
 }
 .header-btn {
+
   display: flex;
   gap: 10px;
   text-align: center;
