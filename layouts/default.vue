@@ -6,7 +6,7 @@ import '@/assets/default.css'; // ここを追加
 <div>
 <header class="header">
   <div class="header-left">
-      <h1>タイマーテスト</h1>
+      <h1 class="header-text">タイマーテスト</h1>
   </div>
   <div class="header-right">
     <div class="header-btn">
@@ -39,7 +39,8 @@ import '@/assets/default.css'; // ここを追加
   display: flex;
   align-items: center;
   background-color: #e6e6e6;
-  height: 50px;
+  height: 7vw;
+  max-height: 60px;
   justify-content: space-between;
 }
 .header-left {
@@ -56,12 +57,16 @@ import '@/assets/default.css'; // ここを追加
   text-align: center;
 
 }
+.header-text {
+  white-space: nowrap;
+  font-size: max(2vw, 25px);
 
+}
 .button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 12px;
+  padding: 2% 12px;
   gap: 8px;
   height: 36px;
   width: 120px;
@@ -92,7 +97,10 @@ import '@/assets/default.css'; // ここを追加
   display: block;
   align-items: center;
   background-color: #e6e6e6;
-  height: 50px;
+  height: 7vw;
+  max-height: 60px;
   justify-content: space-between;
 }
+
+
 </style>

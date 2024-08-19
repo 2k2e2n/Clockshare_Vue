@@ -65,14 +65,17 @@
   <h1>タイマーテスト</h1>
   <p>check: {{ check }} time: {{ time }}  </p>
   <div>
-  <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> </div>
+
 
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
-    <div class="progress-bar">
-      <div class="progress" :style="{ width: (progress * (1/6)) + '%' }"></div>
-    </div>
 
+    <div class="parent">
+      <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> </div>
+      <div class="progress-bar">
+        <div class="progress" :style="{ width: (progress * (1/6)) + '%' }"></div>
+      </div>
+    </div>
     <div class="btn-main">
       <!-- トグルボタン -->
       <button 
@@ -106,14 +109,14 @@
 
 /* ---既存のCSS--- */
 .maincontent {
-  font-size: 500%;
   color: red;
   font-weight: bold;
   z-index: 10;
+  font-size: 10vw;
 }
 
+
 .progress-bar {
-  width: 50%;
   background-color: #e0e0e0;
   border-radius: 5px;
   overflow: hidden;
@@ -123,6 +126,7 @@
 }
 
 .progress {
+
   height: 20px;
   background-color: #3498db;
   width: 0;
@@ -167,10 +171,11 @@
   }
 
 .running-stickman {
-  scale: 20%;
-  margin-bottom: -250px;
-  margin-top: -200px;
+  width: 10vw;
+  position: relative;
   z-index: -1;
+  margin: -40px;
 }
+
 
 </style>

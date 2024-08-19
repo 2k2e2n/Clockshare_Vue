@@ -19,13 +19,14 @@ function loop() {
 
 </script>
 <template>
-  <div>
-    <ul class="CPU">CPU:
+  <div class="poarent">
+    <ul class="CPU">CPU:</ul>
     <Showtime class="set-font-size" :time="bottime" />
+
     <div class = "progress-bar">
       <div class = "progress" :style="{width: progress + '%'}"></div>
-      </div>
-    </ul>
+    </div>
+    
 
   </div>
 </template>
@@ -36,20 +37,24 @@ function loop() {
   font-size: 150%;
 }
 
-.CPU {
+.parent {
   display: flex;
-  flex-direction: column;
   align-items: center;
+}
+.CPU {
+
   justify-content: center;
   text-align: center;
-  margin-left: -50px;
+  /*margin-left: -50px; */
 }
 .progress-bar {
-  width: 300%;
   background-color: rgb(145, 145, 145);
   border-radius: 5px;
   overflow: hidden;
   margin: 10px 0;
+  justify-content: center;
+  width: 20vw;
+
 
   /*
   justify-content: center;
@@ -62,6 +67,7 @@ function loop() {
   background-color: blue;
   width: 0;
   transition: width 1s linear;
+  justify-content: center;
 }
 
 </style>
