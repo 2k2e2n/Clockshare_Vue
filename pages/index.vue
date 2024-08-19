@@ -60,13 +60,13 @@
 
   <div class="timer-container">
     <h2>タイマーテスト</h2>
-       <p>check: {{ check }} time: {{ time }}  </p>
+    <p>check: {{ check }} time: {{ time }}  </p>
     <div>
-   <img src ="@/assets/images/running-stickman.gif" alt = "logo" class = "running-stickman"> </div>
+  <img src ="@/assets/images/running-stickman.gif" alt = "logo" class = "running-stickman"> </div>
     
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
-   <div class="progress-bar">
+  <div class="progress-bar">
       <div class="progress" :style="{ width: progress + '%' }"></div>
     </div>
 
