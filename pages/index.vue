@@ -21,12 +21,13 @@
   onMounted(() => {
     time.value = 0;
     progress.value = 0; // 初期化
-    const intervalId = window.setInterval(loop, 1000);
+    const intervalId = window.setInterval(loop, 100); //デフォルトは1000
     checklocalkey();
   });
 
   //時間が保存されているか確認
   function checklocalkey() {
+    // 休憩していない場合１秒ずつ実行
     if (localStorage.hasOwnProperty(local_time_keyname)) {
       time.value = Number(localStorage.getItem(local_time_keyname));
     } else {
@@ -43,11 +44,12 @@
   function loop() {
     if (!isRest.value) {
       time.value++;
-      progress.value = (time.value % 100); // 追加: ゲージの進行度を更新（100秒ごとにリセット）
+      progress.value = (time.value % 600); // 追加: ゲージの進行度を更新（10分ごとにリセット）
       localStorage.setItem(local_time_keyname, time.value);
     }
-    if (progress.value == 99) {
+    if (progress.value == 599) {
       check.value++;
+      //progress.value == 0;
     }
   }
 
@@ -68,7 +70,7 @@
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
     <div class="progress-bar">
-      <div class="progress" :style="{ width: progress + '%' }"></div>
+      <div class="progress" :style="{ width: (progress * (1/6)) + '%' }"></div>
     </div>
 
     <div class="btn-main">
@@ -111,7 +113,7 @@
 }
 
 .progress-bar {
-  width: 98%;
+  width: 50%;
   background-color: #e0e0e0;
   border-radius: 5px;
   overflow: hidden;
