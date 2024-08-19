@@ -35,7 +35,7 @@ import '@/assets/default.css'; // ここを追加
 
   <nuxt/>  <!-- メインページのレンダリング-->
 
-  <footer class="header">
+  <footer class="footer">
     <h3>Footer</h3>
   </footer>
 
@@ -101,13 +101,12 @@ import '@/assets/default.css'; // ここを追加
 }
 
 .footer {
-  margin: 50px;
-  display: block;
-  align-items: center;
-  background-color: #e6e6e6;
-  height: 7vw;
-  max-height: 60px;
-  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #44aa33;
 }
 
 
