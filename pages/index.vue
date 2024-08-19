@@ -60,7 +60,7 @@
 <template>
 
   <div class="timer-container">
-  <h2>タイマーテスト</h2>
+  <h1>タイマーテスト</h1>
   <p>check: {{ check }} time: {{ time }}  </p>
   <div>
   <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> </div>
@@ -84,8 +84,6 @@
       <!-- クリアタイムボタン -->
       <button class="clear-button" @click="clearTime">ClearTime </button>
     </div>
-
-    <h3>--bot--</h3>
 
     <Bot />
     <Bot />

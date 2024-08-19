@@ -49,7 +49,7 @@ function loop() {
   background-color: rgb(145, 145, 145);
   border-radius: 5px;
   overflow: hidden;
-  margin: 20px 0;
+  margin: 10px 0;
 
   /*
   justify-content: center;
