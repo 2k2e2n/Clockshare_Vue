@@ -62,7 +62,7 @@
     <h2>タイマーテスト</h2>
     <p>check: {{ check }} time: {{ time }}  </p>
     <div>
-  <img src ="@/assets/images/running-stickman.gif" alt = "logo" class = "running-stickman"> </div>
+  <img src="@/assets/images/running-stickman.gif" alt="logo" class="running-stickman"> </div>
     
     <Showtime class="maincontent" v-if="!isRest" :time="time" />
     <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
@@ -110,6 +110,7 @@
   font-size: 500%;
   color: red;
   font-weight: bold;
+  z-index: 10;
 }
 
 .progress-bar {
@@ -171,6 +172,7 @@
   scale: 20%;
   margin-bottom: -250px;
   margin-top: -200px;
+  z-index: -1;
 }
 
 </style>
