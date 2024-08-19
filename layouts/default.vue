@@ -24,8 +24,13 @@ import '@/assets/default.css'; // ここを追加
     </div>
   </div>
 </header>
-  <nuxt />
-  <p>Footer</p>
+
+  <nuxt/>  <!-- メインページのレンダリング-->
+
+  <footer class="header">
+    <h3>Footer</h3>
+  </footer>
+
 </div>
 </template>
 
@@ -46,14 +51,11 @@ import '@/assets/default.css'; // ここを追加
   justify-content: flex-end;
 }
 .header-btn {
-
   display: flex;
   gap: 10px;
   text-align: center;
 
 }
-
-
 
 .button {
   display: flex;
@@ -85,4 +87,12 @@ import '@/assets/default.css'; // ここを追加
   animation: spin 2s linear infinite;
 }
 
+.footer {
+  margin: 50px;
+  display: block;
+  align-items: center;
+  background-color: #e6e6e6;
+  height: 50px;
+  justify-content: space-between;
+}
 </style>
