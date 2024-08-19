@@ -4,8 +4,6 @@
   import Resttime from '@/components/Resttime.vue';
   import Bot from '@/components/Bot.vue';
 
-  // install lottie
-
 
   // Variable
   const time = ref(0);
@@ -20,11 +18,11 @@
     // ロード中
   });
 
-onMounted(() => {
-  time.value = 0;
-  progress.value = 0; // 初期化
-  const intervalId = window.setInterval(loop, 1000);
-  checklocalkey();
+  onMounted(() => {
+    time.value = 0;
+    progress.value = 0; // 初期化
+    const intervalId = window.setInterval(loop, 1000);
+    checklocalkey();
   });
 
   function checklocalkey() {
@@ -55,8 +53,8 @@ onMounted(() => {
   function toggleRest() {
     isRest.value = !isRest.value;
   }
-
 </script>
+
 
 <template>
 
@@ -71,28 +69,29 @@ onMounted(() => {
    <div class="progress-bar">
       <div class="progress" :style="{ width: progress + '%' }"></div>
     </div>
-    <!-- トグルボタン -->
-    <button 
-      class="toggle-button" 
-      @mouseover="hover = true" 
-      @mouseleave="hover = false" 
-      :class="{ 'hover': hover }" 
-      @click="toggleRest">
-      {{ isRest ? 'REST(True)' : 'TIME(False)' }}
-    </button>
 
-    <!-- クリアタイムボタン -->
-    <button class="clear-button" @click="clearTime">ClearTime</button>
+    <div class="btn-main">
+    <!-- トグルボタン -->
+      <button 
+        class="toggle-button" 
+        @mouseover="hover = true" 
+        @mouseleave="hover = false" 
+        :class="{ 'hover': hover }" 
+        @click="toggleRest">
+        {{ isRest ? 'REST(True)' : 'TIME(False)' }}
+      </button>
+
+      <!-- クリアタイムボタン -->
+      <button class="clear-button" @click="clearTime">ClearTime</button>
+    </div>
+
 
     <h3>--bot--</h3>
 
     <Bot />
     <Bot />
     <Bot />
-
   </div>
-
-  
 </template>
 
 
@@ -129,6 +128,10 @@ onMounted(() => {
   background-color: #3498db;
   width: 0;
   transition: width 1s linear; /* ゲージの幅を滑らかに更新 */
+}
+
+.btn-main {
+  display: flex;
 }
 
 .toggle-button {
