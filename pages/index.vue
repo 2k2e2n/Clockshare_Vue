@@ -11,6 +11,7 @@ const progress = ref(0);
 const hover = ref(false);
 const check = ref(0);
 const local_time_keyname = "time";
+const local_check_keyname = "check-count";
 
 let intervalId = null;
 
@@ -37,12 +38,23 @@ function checklocalkey() {
     localStorage.setItem(local_time_keyname, "0");
   }
   task.value = localStorage.getItem("whatstudy", task.value);
+
+  if (!localStorage.getItem(local_check_keyname)) {
+    localStorage.setItem(local_check_keyname, "0");
+  }
+  check.value = localStorage.getItem(local_check_keyname);
+  
 }
 
+  // cleartimeボタンが押されたときに実行
 function clearTime() {
   localStorage.setItem(local_time_keyname, "0");
+  localStorage.setItem(local_check_keyname, "0");
   time.value = 0;
   progress.value = 0;
+  check.value = 0;
+
+
 }
 
 function loop() {
@@ -53,6 +65,7 @@ function loop() {
     
     if (progress.value === 599) {
       check.value++;
+      localStorage.setItem(local_check_keyname, check.value);
     }
   }
 }
@@ -161,7 +174,7 @@ button:hover {
   height: 20px;
   background-color: #3498db;
   width: 0;
-  transition: width 1s linear;
+  /* transition: width 1s linear; */
 }
 
 .btn-main {
