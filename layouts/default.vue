@@ -101,7 +101,6 @@ import '@/assets/default.css'; // ここを追加
 }
 
 .footer {
-  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
