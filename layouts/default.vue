@@ -1,5 +1,7 @@
 <script setup>
 import '@/assets/default.css'; // ここを追加
+
+import Check_screen from '@/components/Check-Landscape-screren.vue';
 </script>
 
 <template>
@@ -33,6 +35,7 @@ import '@/assets/default.css'; // ここを追加
   </div>
 </header>
 
+  <Check_screen />
   <nuxt/>  <!-- メインページのレンダリング-->
 
   <footer class="footer">
