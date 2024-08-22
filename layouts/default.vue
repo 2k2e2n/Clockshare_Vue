@@ -79,8 +79,8 @@ import Check_screen from '@/components/Check-Landscape-screren.vue';
   align-items: center;
   padding: 2% 12px;
   gap: 8px;
-  height: 36px;
-  width: 120px;
+  height: 5vh;
+  width: 12vw;
   border: none;
   background: #5e41de33;
   border-radius: 20px;
@@ -89,10 +89,14 @@ import Check_screen from '@/components/Check-Landscape-screren.vue';
 
 .lable {
   line-height: 20px;
-  font-size: 17px;
+
   color: #5D41DE;
   font-family: sans-serif;
   letter-spacing: 1px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  font-size:max(13px,1vw);
 }
 
 .button:hover {
