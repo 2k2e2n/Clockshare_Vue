@@ -105,10 +105,11 @@ function toggleRest() {
       <!-- クリアタイムボタン -->
       <button class="clear-button" @click="clearTime">ClearTime</button>
     </div>
-
+    <div class="bot-container">
       <Bot />
       <Bot />
       <Bot />
+    </div>
   </div>
 </template>
 
@@ -222,5 +223,10 @@ button:hover {
   margin: -40px;
 }
 
-
+.bot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+}
 </style>
