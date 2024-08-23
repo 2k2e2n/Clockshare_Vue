@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted, defineProps } from 'vue';
-import Showtime from './Showtime.vue';
+import { ref, onMounted, defineProps } from "vue";
+import Showtime from "./Showtime.vue";
 
-const bottime  = ref( Math.floor(Math.random() * 10000) );
+const bottime = ref(Math.floor(Math.random() * 10000));
 const progress = ref(0);
 const local_time_keyname = "time";
 const cpuname_list = ref([
@@ -15,11 +15,12 @@ const cpuname_list = ref([
   "Matthew Moore",
   "Sarah Taylor",
   "David Anderson",
-  "Laura Thomas"]);
+  "Laura Thomas",
+]);
 const cpuname = ref();
 
 onMounted(() => {
-  const intervalId = window.setInterval(loop, 1000);  // 1秒に1回実行
+  const intervalId = window.setInterval(loop, 1000); // 1秒に1回実行
   progress.value = 0;
 
   const randomcpuname = Math.floor(Math.random() * cpuname_list.value.length);
@@ -29,15 +30,13 @@ onMounted(() => {
 //１秒毎にループ
 function loop() {
   bottime.value++;
-  progress.value = (bottime.value % 100); //100sでリセット
+  progress.value = bottime.value % 100; //100sでリセット
   localStorage.setItem(local_time_keyname, bottime.value);
-};
-
-
+}
 </script>
 <template>
   <div class="parent">
-    <div class="CPU"> {{ cpuname }} </div>
+    <div class="CPU">{{ cpuname }}</div>
     <Showtime class="set-font-size" :time="bottime" />
 
     <div class="progress-bar-wrapper">
@@ -84,5 +83,4 @@ function loop() {
   width: 0;
   transition: width 1s linear;
 }
-
 </style>

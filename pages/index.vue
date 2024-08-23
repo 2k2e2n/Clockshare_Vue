@@ -1,10 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import Showtime from '@/components/Showtime.vue';
-import Resttime from '@/components/Resttime.vue';
-import Bot from '@/components/Bot.vue';
+import { ref, onMounted } from "vue";
+import Showtime from "@/components/Showtime.vue";
+import Resttime from "@/components/Resttime.vue";
+import Bot from "@/components/Bot.vue";
 
-const task = ref('');
+const task = ref("");
 const time = ref(0);
 const isRest = ref(false);
 const progress = ref(0);
@@ -12,8 +12,9 @@ const hover = ref(false);
 const check = ref(0);
 const local_time_keyname = "time";
 const local_check_keyname = "check-count";
-const darkMode = ref(false);
 
+const darkMode = ref(false);
+const local_theme = "checkTheme";
 let intervalId = null;
 
 onMounted(() => {
@@ -23,12 +24,13 @@ onMounted(() => {
 
 function toggleDarkMode() {
   darkMode.value = !darkMode.value;
+  localStorage.setItem(local_theme, darkMode.value);
 }
 
 function startTimer() {
   time.value = Number(localStorage.getItem(local_time_keyname)) || 0;
   progress.value = time.value % 600;
-  
+
   if (intervalId) {
     clearInterval(intervalId);
   }
@@ -45,19 +47,20 @@ function checklocalkey() {
   if (!localStorage.getItem(local_check_keyname)) {
     localStorage.setItem(local_check_keyname, "0");
   }
+
+  if (!localStorage.getItem(local_theme)) {
+    localStorage.setItem(local_theme, darkMode.value);
+  }
   check.value = localStorage.getItem(local_check_keyname);
-  
 }
 
-  // cleartimeボタンが押されたときに実行
+// cleartimeボタンが押されたときに実行
 function clearTime() {
   localStorage.setItem(local_time_keyname, "0");
   localStorage.setItem(local_check_keyname, "0");
   time.value = 0;
   progress.value = 0;
   check.value = 0;
-
-
 }
 
 function loop() {
@@ -65,7 +68,7 @@ function loop() {
     time.value++;
     progress.value = time.value % 600; // Gauge resets every 10 minutes
     localStorage.setItem(local_time_keyname, time.value);
-    
+
     if (progress.value === 599) {
       check.value++;
       localStorage.setItem(local_check_keyname, check.value);
@@ -89,27 +92,35 @@ function toggleRest() {
       <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
 
       <div class="parent">
-        <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> 
+        <img
+          src="@/assets/images/running-stickman-transparency.gif"
+          alt="logo"
+          class="running-stickman"
+        />
       </div>
       <div class="progress-bar">
-        <div class="progress" :style="{ width: (progress * (1/6)) + '%' }"></div>
+        <div
+          class="progress"
+          :style="{ width: progress * (1 / 6) + '%' }"
+        ></div>
       </div>
     </div>
     <div class="btn-main">
       <!-- トグルボタン -->
-      <button 
-        class="toggle-button" 
-        @mouseover="hover = true" 
-        @mouseleave="hover = false" 
-        :class="{ 'hover': hover }" 
-        @click="toggleRest">
-        {{ isRest ? 'REST' : 'studying' }}
+      <button
+        class="toggle-button"
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+        :class="{ hover: hover }"
+        @click="toggleRest"
+      >
+        {{ isRest ? "REST" : "studying" }}
       </button>
       <!-- クリアタイムボタン -->
       <button class="clear-button" @click="clearTime">ClearTime</button>
       <!-- ダークモードトグルボタン -->
       <button class="dark-mode-button" @click="toggleDarkMode">
-        {{ darkMode ? 'Light Mode' : 'Dark Mode' }}
+        {{ darkMode ? "Light Mode" : "Dark Mode" }}
       </button>
     </div>
     <div class="bot-container">
@@ -119,7 +130,6 @@ function toggleRest() {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 #app {
@@ -167,7 +177,6 @@ button:hover {
   font-size: 10vw;
 }
 
-
 .progress-bar {
   background-color: #e0e0e0;
   border-radius: 5px;
@@ -176,13 +185,15 @@ button:hover {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 50vw;
-  max-width :700px;
+  max-width: 700px;
+  z-index: 1;
 }
 
 .progress {
   height: 20px;
   background-color: #3498db;
   width: 0;
+
   /* transition: width 1s linear; */
 }
 
@@ -227,10 +238,13 @@ button:hover {
 .running-stickman {
   width: 10vw;
   position: relative;
-  z-index: -1;
+  z-index: 0;
   margin: -40px;
 }
 
+img:has(.dark-mode) {
+  filter: invert(100%);
+}
 .bot-container {
   display: flex;
   align-items: center;
@@ -244,10 +258,10 @@ button:hover {
 }
 
 .dark-mode h1 {
-  color:#ffffff;
+  color: #ffffff;
 }
 .dark-mode p {
-  color:#ffffff;
+  color: #ffffff;
 }
 .dark-mode .toggle-button {
   background-color: #00c3ff;
@@ -284,5 +298,4 @@ button:hover {
 .dark-mode .running-stickman {
   filter: invert(1) brightness(2);
 }
-
 </style>
