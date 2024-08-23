@@ -5,9 +5,25 @@ import Showtime from './Showtime.vue';
 const bottime  = ref( Math.floor(Math.random() * 10000) );
 const progress = ref(0);
 const local_time_keyname = "time";
+const cpuname_list = ref([
+  "John Doe",
+  "Jane Smith",
+  "Michael Johnson",
+  "Emily Davis",
+  "Chris Brown",
+  "Jessica Wilson",
+  "Matthew Moore",
+  "Sarah Taylor",
+  "David Anderson",
+  "Laura Thomas"]);
+const cpuname = ref();
+
 onMounted(() => {
   const intervalId = window.setInterval(loop, 1000);  // 1秒に1回実行
   progress.value = 0;
+
+  const randomcpuname = Math.floor(Math.random() * cpuname_list.value.length);
+  cpuname.value = cpuname_list.value[randomcpuname];
 });
 
 //１秒毎にループ
@@ -17,10 +33,11 @@ function loop() {
   localStorage.setItem(local_time_keyname, bottime.value);
 };
 
+
 </script>
 <template>
   <div class="parent">
-    <div class="CPU">CPU:</div>
+    <div class="CPU"> {{ cpuname }} </div>
     <Showtime class="set-font-size" :time="bottime" />
 
     <div class="progress-bar-wrapper">
