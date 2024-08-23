@@ -31,6 +31,10 @@ import Check_screen from '@/components/Check-Landscape-screren.vue';
       </button>
       </router-link>
 
+      <button class="button">
+        <span class="lable">Darkmode</span>
+      </button>
+
     </div>
   </div>
 </header>
