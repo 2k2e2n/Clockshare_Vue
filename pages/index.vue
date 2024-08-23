@@ -12,6 +12,7 @@ const hover = ref(false);
 const check = ref(0);
 const local_time_keyname = "time";
 const local_check_keyname = "check-count";
+const darkMode = ref(false);
 
 let intervalId = null;
 
@@ -20,7 +21,9 @@ onMounted(() => {
   startTimer();
 });
 
-
+function toggleDarkMode() {
+  darkMode.value = !darkMode.value;
+}
 
 function startTimer() {
   time.value = Number(localStorage.getItem(local_time_keyname)) || 0;
@@ -76,18 +79,18 @@ function toggleRest() {
 </script>
 
 <template>
-  <div id="app">
+  <div :class="{ 'dark-mode': darkMode }" id="app">
     <div class="timer-container">
       <h1>タイマーテスト</h1>
       <p>今勉強していること：{{ task }}</p>
       <p>check: {{ check }} time: {{ time }}</p>
 
+      <Showtime class="maincontent" v-if="!isRest" :time="time" />
+      <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
 
-    <Showtime class="maincontent" v-if="!isRest" :time="time" />
-    <Resttime class="maincontent" v-if="isRest" :isRest="isRest" />
-
-    <div class="parent">
-      <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> </div>
+      <div class="parent">
+        <img src="@/assets/images/running-stickman-transparency.gif" alt="logo" class="running-stickman"> 
+      </div>
       <div class="progress-bar">
         <div class="progress" :style="{ width: (progress * (1/6)) + '%' }"></div>
       </div>
@@ -104,6 +107,10 @@ function toggleRest() {
       </button>
       <!-- クリアタイムボタン -->
       <button class="clear-button" @click="clearTime">ClearTime</button>
+      <!-- ダークモードトグルボタン -->
+      <button class="dark-mode-button" @click="toggleDarkMode">
+        {{ darkMode ? 'Light Mode' : 'Dark Mode' }}
+      </button>
     </div>
     <div class="bot-container">
       <Bot />
@@ -112,6 +119,7 @@ function toggleRest() {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 #app {
@@ -229,4 +237,52 @@ button:hover {
   justify-content: center;
   justify-content: space-around;
 }
+
+.dark-mode {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.dark-mode h1 {
+  color:#ffffff;
+}
+.dark-mode p {
+  color:#ffffff;
+}
+.dark-mode .toggle-button {
+  background-color: #00c3ff;
+  color: #ffffff;
+}
+
+.dark-mode .clear-button {
+  background-color: #ff0000;
+}
+
+.dark-mode .progress-bar {
+  background-color: #ffffff;
+}
+
+.dark-mode .progress {
+  background-color: #ff0000;
+}
+
+.dark-mode-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #333333;
+}
+
+.dark-mode-button:hover {
+  background-color: #555555;
+}
+
+.dark-mode .running-stickman {
+  filter: invert(1) brightness(2);
+}
+
 </style>
