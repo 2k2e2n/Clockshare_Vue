@@ -1,12 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
-const task = ref('');
+const task = ref("");
 const isTaskEntered = ref(false);
 
-
 function enterTask() {
-  if (task.value.trim() !== '') {
+  if (task.value.trim() !== "") {
     isTaskEntered.value = true;
 
     console.warn(task.value);
@@ -14,31 +13,23 @@ function enterTask() {
   } else {
     localStorage.setItem("whatstudy", "");
   }
-
-
 }
-
-
 </script>
 
 <template>
   <div class="app">
     <h1 v-if="!isTaskEntered">今勉強するべきことはなんですか？</h1>
-    
+
     <!-- タスク入力フォーム -->
     <div v-if="!isTaskEntered">
       <input v-model="task" placeholder="Enter a task" />
 
       <router-link :to="{ path: '/' }">
-      <button @click="enterTask">
-        <span>GO</span>
-      </button>
+        <button @click="enterTask">
+          <span>GO</span>
+        </button>
       </router-link>
     </div>
-
-
-
-
   </div>
 </template>
 

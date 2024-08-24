@@ -1,20 +1,18 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
-
-window.addEventListener('load', function () {
-
-});
-
+window.addEventListener("load", function () {});
 </script>
 
 <template>
-<div  class="bg">
-  <h2 class="text">TESTページ </h2>
-  <h1 class="text">画像のテスト</h1>
-  <p  class="text"> 画像を指定するには、assets/imagesに画像を配置し、imgタグで指定</p>
-  <img src="@/assets/images/image.webp">
-</div>
+  <div class="bg">
+    <h2 class="text">TESTページ</h2>
+    <h1 class="text">画像のテスト</h1>
+    <p class="text">
+      画像を指定するには、assets/imagesに画像を配置し、imgタグで指定
+    </p>
+    <img src="@/assets/images/image.webp" />
+  </div>
 </template>
 
 <style scoped>
