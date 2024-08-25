@@ -4,8 +4,8 @@ import Showtime from "@/components/Showtime.vue";
 import Resttime from "@/components/Resttime.vue";
 import Bot from "@/components/Bot.vue";
 
-const task = ref("");
-const time = ref(0);
+const task = ref(""); //タスクの名前
+const time = ref(0);  //時間管理
 const isRest = ref(false);
 const progress = ref(0);
 const hover = ref(false);
